@@ -1,0 +1,133 @@
+<%layout("/layouts/boilerplate.ejs")%>
+
+<body>
+    <div class="row offset-2">
+        <h3>Create a  new listing</h3>
+    
+    <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+       
+            <div class="col-8">
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input placeholder="Add a cachy title" name="listing[title]"  type="text" class="form-control" required>
+            
+        </div>
+        
+        
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea  class="form-control" name="listing[description]" type="text" type="text" required ></textarea>
+            <div class="invalid-feedback">enter a short description</div>
+        </div>
+        
+        <div class="row">
+        <div class="mb-3 col-md-4">
+            <label class="form-label " for="price">Price</label>
+            <br>
+            <input placeholder="1200" name="listing[price]" type="text" class="form-control" required>
+            <div class="invalid-feedback">enter a valid price</div>
+        </div>
+   
+        
+        <div class="mb-3  col-md-8">
+            <label class="form-label" for="country">Country</label>
+            <input placeholder="India" name="listing[country]" type="text" class="form-control" required>
+            <div class="invalid-feedback">enter a valid country name</div>
+        </div>
+    </div>
+        <!-- <div class="mb-3">
+            <label class="form-label" for="image"> Image Url </label>
+            <input placeholder="enter image link" name="listing[image][0][url]" type="text" class="form-control" required>
+        </div> -->
+
+        <div class="mb-3">
+            <label class="form-label" for="image">Upload image</label>
+            <input name="listing[image]" type="file" class="form-control" required>
+        </div>
+        
+        
+       
+        
+        
+        
+        <br>
+        <div class="mb-3">
+            <label class="form-label" for="loacation">Location</label>
+            <input placeholder="Jaipur,Rajasthan" name="listing[location]" type="text" class="form-control" required>
+            <div class="invalid-feedback">enter a valid location</div>
+        </div>
+        
+        
+<lable>Choose categories of listing :</lable>
+<br>
+<div class="form-check">
+  <input class="form-check-input" name="listing[category]" type="checkbox" value="trending" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+trending
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" name="listing[category]"type="checkbox" value="amazing pools" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    amazing pools
+  </label>
+</div>
+
+
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="arctic" id="checkChecked" checked>
+  <label class="form-check-label" for="checkChecked">
+    arctic
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="castels" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    castels
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="farms" id="checkDefault" checked>
+  <label class="form-check-label" for="checkDefault">
+    farms
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="camping" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    camping
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="mountains" id="checkChecked" checked>
+  <label class="form-check-label" for="checkChecked">
+    mountains
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="iconic cities" id="checkDefault">
+  <label class="form-check-label" for="checkDefault">
+    iconic cities
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input"name="listing[category]" type="checkbox" value="rooms" id="checkChecked" checked>
+  <label class="form-check-label" for="checkChecked">
+    rooms
+  </label>
+</div>
+
+
+
+
+
+
+
+        <button class="btn btn-dark addbutton">Add</button>
+
+
+    </form>
+</div>
+</div>
+<br>
+</body>

@@ -1,0 +1,195 @@
+<%layout("/layouts/boilerplate.ejs")%>
+<br><br>
+<body>
+    <style>
+        #map 
+        {
+         height: 180px; 
+        border-radius: 20px ;
+        }
+        @media(max-width:768px){
+            .card-text{
+                width: 100%;
+                margin-right: 5rem !important;
+            }
+            .row{
+                width: 100%;
+
+            }
+            .col-12 h3{
+                margin-left: 1rem;
+            }
+            .col-5{
+                width:100%
+            }
+
+        }
+    </style>
+    
+    <div class="row">
+        <div class="col-12" >
+<h3><%= lis.title %></h3>
+        </div>
+        
+   
+
+<div class="row">
+    <div class="card col-2 offset-3 showCard listing-card" style="width: 24rem;">
+        <img src="<%=lis.image[0].url%>" class="card-img-top  showImage" alt="listImage">
+        <div class="card-body">
+          <p class="card-text">
+            
+                
+           
+                <i>Owned By : <%=lis.owner.username %></i><br><br>
+                &#8377;<%= lis.price ? lis.price.toLocaleString("en-IN") : "Price not available" %> <br><br>
+                
+                <%= lis.description %> <br><br>
+               <%=lis.location%> <br><br>
+               <%=lis.country%> <br><br>
+               <%=lis._id%><br><br>
+
+            
+          </p>
+          <div id="map"></div>
+        </div>
+    </div>
+  
+    </div>
+    <% if(currUser && lis.owner._id.equals(currUser._id)){ %>
+
+   
+          <div class="buttons">
+            <a href="/listings/<%=lis._id%>/edit" class="btn addbutton col-sm-1 offset-1">edit</a>
+            <form method="post" action="/listings/<%=lis._id%>?_method=DELETE">
+             <button class="btn addbutton offset-2">delete</button>
+            </form>
+        </div>
+         <%}%>
+    </div>
+               <br><br>  
+              
+               <div class="col-8 mb-3" >
+                <hr/>
+                 <% if(currUser){%>
+                <h4>Leave a Review</h4>
+                <form method="post" action="/listings/<%=lis._id%>/reviews" novalidate class="needs-validation">
+                    
+                        
+                        <!-- <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"> -->
+                    
+                    <div class="mb-3 mt-3">
+                          <label for="rating" class="form-label">Rating</label>
+                    <fieldset class="starability-slot">
+                      
+  
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+</div>
+                    <div class="mb-3 mt-3">
+                        <label for="comment" class="form-label">Comments</label>
+                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                    </div>
+                <div class="invalid-feedback">add a comment</div>
+                 
+                    <button class="btn btn-dark">submit</button>
+                </form>
+                <hr/>
+                <%}%>
+               </div>
+        
+
+
+<p><b>Reviews</b></p>
+<div class="row">
+    <%for(review of lis.reviews){%>
+        
+<div class="card col-5 ms-3 mb-3">
+
+    <div class="card-body">
+        <h5 class="card-title">@<%=review.author.username%></h5>
+        <p class="starability-result" data-rating=<%=review.rating%>>
+<p class="card-text "><%=review.comment%></p>
+
+
+    
+  </p>
+
+    </div>
+    
+    <% if(currUser && review.author._id.equals(currUser._id)){ %>
+<form class="mb-3 mt-3" method="POST" action="/listings/<%=lis._id%>/reviews/<%=review._id%>?_method=DELETE">
+    <button class="btn btn-dark">
+delete
+    </button>
+
+    </form>
+    <%}%>
+    
+</div>
+
+<% }%>
+
+</div>
+   
+
+    
+
+   
+   
+    
+    
+</body>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const map = L.map('map').setView([20, 0], 2);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map); 
+  
+
+
+
+  async function getLatLngFromCountry(country) {
+    const apiKey = process.env.OPENCAGE_KEY; 
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(country)}&key=${apiKey}&limit=1`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+
+      const { lat, lng } = data.results[0].geometry;
+     
+     
+      return [lat, lng];
+    } catch (err) {
+      console.warn("Geocode failed for:", country);
+      return null;
+    }
+  }
+
+  async function showMarker(){
+    const country="<%=lis.location%>";
+    let coord=await getLatLngFromCountry(country);
+    console.log(coord);
+    var marker = L.marker(coord).addTo(map);
+  }
+
+  showMarker();
+})
+</script>
+
