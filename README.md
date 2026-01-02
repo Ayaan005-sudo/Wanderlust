@@ -1,4 +1,4 @@
-# Wanderlust – Airbnb Clone
+# Wanderlust
 
 ## Description
 Wanderlust is a full-stack Airbnb-like web application where users can explore places, create their own listings, and share reviews and ratings. The project demonstrates real-world CRUD functionality, secure authentication and authorization, database relationships, and map integration.
