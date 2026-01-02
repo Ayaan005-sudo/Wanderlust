@@ -1,56 +1,80 @@
-# Disaster Management 
+# Wanderlust – Airbnb Clone
 
 ## Description
-A full-stack web application for disaster management and relief coordination.  
-The platform provides live disaster updates, tracks disaster information, enables fund donations, and allows NGOs to request aid.  
+Wanderlust is a full-stack Airbnb-like web application where users can explore places, create their own listings, and share reviews and ratings. The project demonstrates real-world CRUD functionality, secure authentication and authorization, database relationships, and map integration.
 
-Key highlights:
-- Real-time disaster updates using satellite data
-- Interactive map showing disaster locations by country
-- Separate dashboards for users and NGOs
-- Fund donation and request system
-- Emergency SOS functionality
+The application is fully deployed and built using the MVC architecture.
+
+## Live Demo
+Deployed Link:[(https://wanderlust-ldc7.onrender.com)](https://wanderlust-ldc7.onrender.com)
 
 ## Tech Stack
-- Backend: Node.js, Express.js, EJS, Passport.js, Session & Cookies
-- Frontend: EJS, Bootstrap, HTML/CSS, JavaScript
-- Database: MongoDB
-- Payment Gateway: Razorpay (Test mode)
-- Email: Nodemailer (for NGO registration & notifications)
-- Maps: Leaflet.js
+Frontend: EJS, HTML, CSS, Bootstrap, JavaScript  
+Backend: Node.js, Express.js  
+Database: MongoDB (Mongoose)  
+Authentication: Passport.js, Sessions, Cookies  
+Maps & Geocoding: Leaflet.js  
+Architecture: MVC Pattern
 
-## Features Implemented
+## Features
 
-### Live Updates
-- Page showing real-time disaster information fetched via satellite data
-- Search option for specific disasters
+### Authentication & Authorization
+- User signup and login using Passport.js  
+- Session and cookie-based authentication  
+- Only authorized users can modify their own data
 
-### Dashboard
-- Country-wise disaster counts
-- Map view highlighting affected countries
+### Listings Management
+- Users can create their own listings  
+- Listing owners can edit and delete their listings  
+- Other users cannot edit or delete someone else’s listing
 
-### Disaster Info Page
-- Detailed disaster information page for each disaster
+### Reviews & Ratings
+- Logged-in users can add reviews and ratings  
+- Review authors can delete their own reviews only
 
-### User & NGO Authentication
-- Separate sign-in for users and NGOs
-- Implemented using Passport.js with session cookies
+### Map Integration
+- Each listing displays its location on an interactive map  
+- Helps users easily identify where the place is located
 
-### Fund Donation & Tracking
-- Users can donate to NGOs
-- Donation history visible to each user
-- NGOs can request funds (approval via admin email notifications)
-- Admin receives fund requests via email
+### Search & Filter
+- Search listings based on country  
+- Filter listings based on category
 
-### Emergency SOS
-- User clicks SOS button → triggers phone call/SMS if on mobile or email if on desktop
+### Database Relationships
+- User ↔ Listings relationship  
+- Listings ↔ Reviews relationship  
+- Implemented using Mongoose for data consistency
 
-## Upcoming Features / Planned Improvements
-- Convert entire project to MVC architecture
-- Admin panel for fund approvals (currently via email)
-- File upload for NGOs using Cloudinary
-- UI fixes and enhancements
-- Additional features for NGO and user interaction
+## Key Learnings
+- Implementing CRUD operations in a real-world project  
+- Authentication and authorization using Passport.js  
+- MongoDB relationships with Mongoose  
+- MVC architecture in Express applications  
+- Map integration using Leaflet
+
+## Future Improvements
+- Image upload using Cloudinary  
+- Advanced search filters  
+- Booking functionality  
+- UI/UX improvements
 
 ## How to Run Locally
-1. Clone the repository:
+
+1. Clone the repository  
+   git clone your-repository-link
+
+2. Install dependencies  
+   npm install
+
+3. Add environment variables (MongoDB URI, session secret)
+
+4. Start the server  
+   npm start
+
+5. Open in browser  
+   http://localhost:3000
+
+
+
+
+
